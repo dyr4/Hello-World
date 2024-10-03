@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1727943488 source:c:\users\dimka\onedrive\Рабочий стол\5 семак\программирование\3.1.2\main.cpp
-	<iostream>
-	<fstream>
-	<string>
-	<vector>
-	<algorithm>
-
