@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1731097714 source:c:\users\den\desktop\programming\unit-3.5.3\main.cpp
+	<iostream>
+	<chrono>
+	<thread>
+	<fstream>
+
+1731096927 c:\users\den\desktop\programming\unit-3.5.3\encryption_utils.h
+	<string>
+	<locale>
+	<codecvt>
+	<chrono>
+
