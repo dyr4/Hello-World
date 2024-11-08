@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1729921378 source:c:\users\infarez\documents\c++ ״טפנû\3.2.4 unit\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<thread>
+	<chrono>
+
+1731095656 source:c:\users\infarez\desktop\12\hello-world-test\3.2.4 unit\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<thread>
+	<chrono>
+
