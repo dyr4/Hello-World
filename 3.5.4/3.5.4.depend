@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1729841576 source:c:\users\infarez\documents\c++ ״טפנû\3.2.4\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<thread>
+	<chrono>
+
+1729923120 source:c:\users\infarez\documents\c++ ״טפנû\hello-world-dev\3.2.4\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<thread>
+	<chrono>
+
+1731094959 source:c:\users\infarez\desktop\12\hello-world-dev\3.2.4\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<thread>
+	<chrono>
+
+1731094959 source:c:\users\infarez\desktop\12\hello-world-dev\3.5.4\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<thread>
+	<chrono>
+
