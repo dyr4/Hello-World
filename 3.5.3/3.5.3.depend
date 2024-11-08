@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1731091167 source:c:\users\den\desktop\programming\3.5.3\main.cpp
+	<iostream>
+	<chrono>
+	<thread>
+	<fstream>
+	<locale>
+	<codecvt>
+
