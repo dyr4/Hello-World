@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1732051161 source:c:\users\artsh\desktop\курс\hello-world\unit-3.6.1.1\unit-3.6.1.1\main.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<string>
+	<chrono>
+	<thread>
+
