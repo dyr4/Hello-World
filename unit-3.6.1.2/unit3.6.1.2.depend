@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1732036166 source:c:\users\artsh\desktop\лабы практика\unit3.6.1.2\unit3.6.1.2\main.cpp
+	"functions.h"
+	<iostream>
+	<fstream>
+	<sstream>
+
+1732034830 source:c:\users\artsh\desktop\лабы практика\unit3.6.1.2\unit3.6.1.2\1.cpp
+	<iostream>
+	<string>
+	<cassert>
+
+1732036166 c:\users\artsh\desktop\лабы практика\unit3.6.1.2\unit3.6.1.2\functions.h
+	<string>
+
+1732049368 source:c:\users\artsh\desktop\курс\hello-world\unit-3.6.1.2\main.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<string>
+	<ctime>
+	<cassert>
+
