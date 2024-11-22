@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1732304552 source:c:\users\artem\documents\c++\22222\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<stdexcept>
+	<numeric>
+
+1732304552 source:c:\users\artem\documents\c++\3.6.1.4\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<stdexcept>
+	<numeric>
+
+1732304552 source:c:\users\artsh\desktop\курс\hello-world\3.6.1.4\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<stdexcept>
+	<numeric>
+
