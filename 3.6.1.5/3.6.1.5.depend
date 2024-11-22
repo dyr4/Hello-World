@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1732305882 source:c:\users\infarez\documents\c++ ״טפנû\3.6.1.5\3.6.1.5\main.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<string>
+	<chrono>
+	<thread>
+
