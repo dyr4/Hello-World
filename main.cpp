@@ -25,16 +25,35 @@ string xorCipher(const string& data, const string& key) {
     return result;
 }
 
-// Функция для вычесления числа месяца
 int Day()
 {
-    time_t tm = time(nullptr);
-    char buf[64];
-    strftime(buf, sizeof(buf), "%d", localtime(&tm));
+    auto t1 = chrono::system_clock::now();
 
-    cout << "Текущая дата: " << buf << endl;
+    // time_point в time_t
+    time_t currentTime = chrono::system_clock::to_time_t(t1);
+    tm* local_tm = localtime(&currentTime);
+    int l = local_tm->tm_wday;
+    return local_tm->tm_wday;
 
-    return stoi(buf);
+}
+
+string generateGamma(int dayW)
+{
+    switch(dayW)
+    {
+        case 1:
+        case 3:
+        case 5:
+            return "ABCD EFGH IJKL MNOP";
+        case 2:
+        case 4:
+            return "GHEF OPMN ABCD IJKL";
+        case 6:
+        case 7:
+            return "GHEF CDAB OPMN KLIJ";
+        default:
+            return "";
+    }
 }
 
 // Подсчёт контрольной суммы
@@ -47,7 +66,6 @@ char kontrolnayaSumma(const string& text, int key2)
     checksum += key2;
     return static_cast<char>(checksum);
 }
-
 
 
 int main() {
@@ -68,9 +86,9 @@ int main() {
     }
 
     string chooseDay;
-    cout<<"Взять дату из системы?(Yes or No)"<<endl;
+    cout<<"Взять день недели из системы?(Yes or No)"<<endl;
     cin>>chooseDay;
-    int gammaType;
+    int gammaType = 0;
 
     if(chooseDay == "Yes" || chooseDay == "yes")
     {
@@ -80,8 +98,15 @@ int main() {
     {
         if(chooseDay == "No" || chooseDay == "no")
         {
-            cout<<"Введите число: ";
-            cin>>gammaType;
+            while (!(gammaType >= 1 && gammaType <= 7))
+            {
+                cout<<"Введите число от 1 до 7: ";
+                cin>>gammaType;
+                if(!(gammaType >= 0 || gammaType <= 7))
+                {
+                    cout<<"Некорректный ввод"<<endl;
+                }
+            }
         }
         else
         {
@@ -108,12 +133,7 @@ int main() {
 
 
     // Выбор гаммы
-    string gamma;
-    if (gammaType % 2 == 0) {
-        gamma = "ABCDEFGHIJKLMNOP"; // Гамма при чётном числе месяца
-    } else {
-        gamma = "GHEFABCDOPMNIJKL"; // Гамма при нечётном числе месяца
-    }
+    string gamma = generateGamma(gammaType);
 
     // Генерация ключа нужной длины
     string generatedKey = generateKey(gamma, text.size()); // Используем введенный ключ
@@ -160,3 +180,6 @@ int main() {
     }
     return 0;
 }
+
+
+
