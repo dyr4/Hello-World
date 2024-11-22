@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1732128255 source:c:\users\artsh\desktop\курс\hello-world\unit-3.6.1.3\unit-3.6.1.3\main.cpp
+	<iostream>
+	<cassert>
+	<string>
+	<vector>
+
