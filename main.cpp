@@ -1,37 +1,40 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>
 #include <thread>
 #include <chrono>
 
 using namespace std;
 
-// Функция для генерации гаммы в зависимости от цикла
-string generateGamma(int key1) {
-    switch (key1) {
-        case 1:
-            return "ABCD EFGH IJKL MNOP";
-        case 2:
-            return "GHAB OPIJ MNCD KLEF";
-        case 3:
-            return "GHEF CDAB OPMN KLIJ";
-        default:
-            return "";
+// Функция для генерации ключа
+string generateKey(const string& key, size_t length) {
+    string generatedKey;
+    for (size_t i = 0; i < length; ++i) {
+        generatedKey += key[i % key.size()]; // Генерируем ключ нужной длины
     }
+    return generatedKey;
 }
 
-// шифрование
-string encode(const string& data, const string& gamma) {
-    string encode_Data;
-    size_t sizeGamma = gamma.size();
-
-    for (size_t i = 0; i < data.size(); i++)
-    {
-        char current_Gamma = gamma[i % sizeGamma]; // повтор гаммы
-        encode_Data.push_back(data[i] ^ current_Gamma); // Шифрование с помощью XOR
+// Функция для шифрования и дешифрования
+string xorCipher(const string& data, const string& key) {
+    string result = data;
+    for (size_t i = 0; i < data.size(); ++i) {
+        result[i] = data[i] ^ key[i]; // Используем XOR для шифрования и дешифрования
     }
+    return result;
+}
 
-    return encode_Data;
+// Функция для вычесления числа месяца
+int Day()
+{
+    time_t tm = time(nullptr);
+    char buf[64];
+    strftime(buf, sizeof(buf), "%d", localtime(&tm));
+
+    cout << "Текущая дата: " << buf << endl;
+
+    return stoi(buf);
 }
 
 // Подсчёт контрольной суммы
@@ -46,42 +49,52 @@ char kontrolnayaSumma(const string& text, int key2)
 }
 
 
+
 int main() {
-    setlocale(LC_ALL, "Russian");
 
-    string inputFileName;
-    string outputFileName;
+    string file_in = "file_in.txt";
+    string file_out = "file_out.txt";
 
-    wcout << L"Введите имя входного файла: " << endl;
-    cin >> inputFileName;
-
-    wcout << L"Введите имя выходного файла: " << endl;
-    cin >> outputFileName;
-
-    // Чтение из файла
-    string line;
+    // Чтение текста из файла
     string text;
+    ifstream fileIn(file_in);
 
-    ifstream inputFile(inputFileName);
-    if (inputFile.is_open()) {
-        while (getline(inputFile, line)) {
-            text += line + '\n';
-        }
-        inputFile.close();
+    if (fileIn.is_open()) {
+        getline(fileIn, text);
+        fileIn.close();
     } else {
-        wcout << L"Ошибка открытия файла" << endl;
+        cout << "Ошибка: Не удалось открыть файл " << file_in << endl;
         return 1;
     }
-    cout << text << endl;
 
+    string chooseDay;
+    cout<<"Взять дату из системы?(Yes or No)"<<endl;
+    cin>>chooseDay;
+    int gammaType;
+
+    if(chooseDay == "Yes" || chooseDay == "yes")
+    {
+    gammaType = Day();
+    }
+    else
+    {
+        if(chooseDay == "No" || chooseDay == "no")
+        {
+            cout<<"Введите число: ";
+            cin>>gammaType;
+        }
+        else
+        {
+            cout<<"Некорректный ввод"<<endl;
+            return 0;
+        }
+    }
 
     int key1 = 1;
     int key2;
 
-
-    while (true)
+    while(true)
     {
-
     switch(key1){
         case 1:
             key2 = 20;
@@ -93,53 +106,57 @@ int main() {
             key2 = 0;
     }
 
+
+    // Выбор гаммы
+    string gamma;
+    if (gammaType % 2 == 0) {
+        gamma = "ABCDEFGHIJKLMNOP"; // Гамма при чётном числе месяца
+    } else {
+        gamma = "GHEFABCDOPMNIJKL"; // Гамма при нечётном числе месяца
+    }
+
+    // Генерация ключа нужной длины
+    string generatedKey = generateKey(gamma, text.size()); // Используем введенный ключ
+    cout << "Генерация ключа: " << generatedKey << endl;
+
     //Добавление контрольной суммы
     char kontSum = kontrolnayaSumma(text, key2);
     text += kontSum;
 
-// шифрование текста
-        string gamma = generateGamma(key1);
-        string encode_Text = encode(text, gamma);
-/*
-        wcout << L"Зашифрованные данные: " << endl;
-        cout << encode_Text << endl;
+    // Шифрование
+    string ciphertext = xorCipher(text, generatedKey);
+    cout << "Зашифрованный текст: " << ciphertext << endl;
 
-        string not_encryptedData = encode(encode_Text, gamma);
-        wcout << L"Расшифрованные данные: " << endl;
-        cout << not_encryptedData << endl;
-*/
+    // Запись зашифрованного текста в файл
+    ofstream outputFile(file_out);
+    if (!outputFile.is_open()) {
+        cout << "Ошибка при открытии файла " << file_out << endl;
+        return 1;
+    }
 
-        ofstream outputFile(outputFileName);
-        if (outputFile.is_open()) {
-            outputFile << encode_Text;
-            outputFile.close();
-        } else {
-            wcout << L"Ошибка открытия файла для записи" << endl;
-            return 1;
-        }
+    outputFile << ciphertext;
+    outputFile.close();
 
-        wcout << L"Файл зашифрован и записан, гамма: " << key1 << endl;
-        key1 = (key1 % 3) + 1;
+    // Дешифрование текста
+    string decryptedtext = xorCipher(ciphertext, generatedKey);
+    cout << "Расшифрованный текст: " << decryptedtext << endl;
 
-        string decryptedtext = encode(encode_Text, gamma);
+    key1 = (key1 % 3) + 1;
 
-         // Извлечение контрольной суммы
+    // Извлечение контрольной суммы
         char kontAfterSum = decryptedtext.back();
         decryptedtext.pop_back();
 
         // Проверка контрольной суммы
         kontSum = kontrolnayaSumma(decryptedtext, key2);
         if (kontSum == kontAfterSum) {
-            wcout << L"Контрольная сумма совпадает. Дешифрование успешно!" << endl;
+            cout << "Контрольная сумма совпадает. Дешифрование успешно!" << endl;
         } else {
-            wcout << L"Контрольная сумма не совпадает." << endl;
+            cout << "Контрольная сумма не совпадает." << endl;
         }
 
         // Ожидание следующего цикла
         this_thread::sleep_for(chrono::seconds(20)); // остановка до следующей гаммы
-
-
     }
-
-
+    return 0;
 }
