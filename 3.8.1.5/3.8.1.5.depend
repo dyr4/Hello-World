@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1734355239 source:d:\programming\3.8.1.5\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<ctime>
+	<numeric>
+
