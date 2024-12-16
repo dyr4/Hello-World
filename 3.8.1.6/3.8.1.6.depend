@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1734356124 source:d:\programming\3.8.1.6\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<chrono>
+	<numeric>
+
